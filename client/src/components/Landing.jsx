@@ -4,6 +4,11 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from "react-router-dom";
+import FeatureSection from './featureSection';
+import CTASection from './CTASection';
+import Pricing from './Pricing';
+import Testimonial from './Testimonial';
+import AboutUs from './AboutUsSection';
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -16,7 +21,7 @@ export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gray-900 min-h-screen flex items-center justify-center">
+    <div className="bg-gray-900 min-h-screen flex-col items-center justify-center">
   {/* Your copied component */}
 
 
@@ -47,9 +52,12 @@ export default function Landing() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            <Link
+                    to =  "/SignIn"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
+                  >
+                    Log in
+                  </Link>
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -117,7 +125,7 @@ export default function Landing() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
               What is FinanceTracker{' '}
-              <Link to="/readMore" className="font-semibold text-indigo-400">
+              <Link to="/ReadMore" className="font-semibold text-indigo-400">
           Read more <span aria-hidden="true">&rarr;</span>
         </Link>
             </div>
@@ -146,6 +154,11 @@ export default function Landing() {
        
       </div>
     </div>
+    <FeatureSection/>
+    <CTASection/>
+    <Pricing/>
+    <Testimonial/>
+    <AboutUs/>
     </div>
   )
 }

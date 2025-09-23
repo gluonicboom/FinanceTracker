@@ -7,13 +7,20 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
-
+  
   try {
+
+    //check if user exists
+    const exist = await pool.query("SELECT * From users WHERE email = $1", [email]);
+    if(exist.rows.length > 0){
+      return res.status(400).json({message: "User already exists"});
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await pool.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-      [name, email, hashedPassword]
+      'INSERT INTO users ( email, password) VALUES ($1, $2) RETURNING *',
+      [email, hashedPassword]
     );
 
     res.json(newUser.rows[0]);

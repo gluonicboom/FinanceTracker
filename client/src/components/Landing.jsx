@@ -52,12 +52,11 @@ export default function Landing() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link
-                    to =  "/SignIn"
+             <Link to ="/SignIn"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
                     Log in
-                  </Link>
+            </Link>
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">

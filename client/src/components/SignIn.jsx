@@ -1,6 +1,43 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function SignIn() {
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+  const[error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try{
+      const res = await fetch("http://localhost:5000/routes/auth/login", 
+        {
+          method : "POST",
+          headers: { "Content-Type" : "application/json" },
+          body: JSON.stringify({email, password}),
+        }
+        
+      );
+      const data = res.json();
+      if(!res.ok){
+        setError(data.msg || data.msg);
+        return;
+      }
+
+      localStorage.setItem(token, data.token);
+
+      navigate("/dashboard");
+    }
+    catch(err){
+      console.error(err);
+      setError("Server Error");
+
+    }
+
+  };
+
   return (
     <>
       
@@ -65,7 +102,7 @@ export default function SignIn() {
           <p className="mt-10 text-center text-sm/6 text-gray-400">
             Not a member?{' '}
             <Link to = "/SignUp" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              Create a Account
+              Create an Account
             </Link>
           </p>
           

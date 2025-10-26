@@ -20,13 +20,13 @@ export default function SignIn() {
         }
         
       );
-      const data = res.json();
+      const data = await res.json();
       if(!res.ok){
-        setError(data.msg || data.msg);
+        setError(data.msg || "Something went wrong");
         return;
       }
 
-      localStorage.setItem(token, data.token);
+      localStorage.setItem("token", data.token);
 
       navigate("/dashboard");
     }
@@ -48,7 +48,7 @@ export default function SignIn() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit= {handleSubmit} method="POST" className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-100">
                 Email address
@@ -60,6 +60,8 @@ export default function SignIn() {
                   type="email"
                   required
                   autoComplete="email"
+                  value = {email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                 />
               </div>
@@ -79,11 +81,13 @@ export default function SignIn() {
                   type="password"
                   required
                   autoComplete="current-password"
+                  value = {password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                 />
               </div>
             </div>
-
+              {error && <p className="text-red-400 text-sm">{error}</p>}
             <div>
               <button
                 type="submit"

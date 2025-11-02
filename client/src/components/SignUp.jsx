@@ -19,15 +19,15 @@ export default function SignUp() {
  }
 
  try{
-  const res = fetch("http://localhost:5000/routes/auth/signup" , 
+  const res = await fetch("http://localhost:5000/api/auth/signup" , 
     {
       method : "POST",
-      headers : {"content-Type" : "application/json"},
+      headers : {"Content-Type" : "application/json"},
       body: JSON.stringify({email, password}),
     }
   )
 
-  const data = res.json();
+  const data = await res.json();
 
   if(!res.ok){
     setError(data.msg || "Something went wrong");

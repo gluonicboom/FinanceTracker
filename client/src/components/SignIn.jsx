@@ -28,7 +28,7 @@ export default function SignIn() {
 
       localStorage.setItem("token", data.token);
 
-      navigate("/dashboard");
+      setTimeout(() => navigate("/Dashboard"), 1500);
     }
     catch(err){
       console.error(err);

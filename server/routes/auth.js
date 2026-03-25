@@ -6,7 +6,9 @@ import pool from '../config/db.js';
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
+  console.log(req.body);
+
+  const {email, password } = req.body;
   
   try {
 
@@ -30,9 +32,10 @@ router.post('/signup', async (req, res) => {
 });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
+  console.error('Signup error:', err.message);
+  res.status(500).json({ message: err.message });
+}
+
 });
 
 router.post('/login', async (req, res) => {
@@ -48,11 +51,14 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ msg: 'Logged in successfully', token });
 
-    res.json({ token });
+   
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
+  console.error('signup error:', err.message);
+  res.status(500).json({ message: err.message });
+}
+
 });
+
+
 
 export default router;

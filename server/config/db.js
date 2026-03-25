@@ -12,4 +12,5 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+pool.connect().then(()=> console.log("Connected to financeTracker DB"))
 export default pool;

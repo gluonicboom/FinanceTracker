@@ -14,7 +14,7 @@ export default function AddTransactions() {
 
   const navigate = useNavigate();
 
-  // 3️⃣ handle submit in React way
+  // 3️⃣ handling submit in react way
   function handleSubmit(e) {
     e.preventDefault();
 

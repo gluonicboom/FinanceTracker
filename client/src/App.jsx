@@ -6,6 +6,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddTransactions from "./components/Dashboard/AddTransactions";
+import Transactions from "./components/Dashboard/transactions";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path ="/Dashboard" element = {<Dashboard/>} />
         <Route path="/AddTransactions" element = {<AddTransactions/>} />
+        <Route path="/Transactions" element ={<Transactions/>} />
       </Routes>
     </Router>
     </TransactionProvider>

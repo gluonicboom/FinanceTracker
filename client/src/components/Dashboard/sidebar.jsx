@@ -33,7 +33,7 @@ export default function Sidebar() {
         </Link>
 
         <Link
-          to="/transactions"
+          to="/Transactions"
           className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-800 transition"
         >
           <ChartBarIcon className="w-5 h-5" />

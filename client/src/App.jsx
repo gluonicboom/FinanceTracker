@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddTransactions from "./components/Dashboard/AddTransactions";
 import Transactions from "./components/Dashboard/transactions";
+import Reports from "./components/Dashboard/reports";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path ="/Dashboard" element = {<Dashboard/>} />
         <Route path="/AddTransactions" element = {<AddTransactions/>} />
         <Route path="/Transactions" element ={<Transactions/>} />
+        <Route path ="/Reports" element = {<Reports/>}/>
       </Routes>
     </Router>
     </TransactionProvider>

@@ -6,8 +6,9 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddTransactions from "./components/Dashboard/AddTransactions";
-import Transactions from "./components/Dashboard/transactions";
+import Transactions from "./components/Dashboard/Transactions";
 import Reports from "./components/Dashboard/reports";
+import Settings from "./components/Dashboard/Settings";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/AddTransactions" element = {<AddTransactions/>} />
         <Route path="/Transactions" element ={<Transactions/>} />
         <Route path ="/Reports" element = {<Reports/>}/>
+        <Route path="/Settings" element = {<Settings/>} />
       </Routes>
     </Router>
     </TransactionProvider>

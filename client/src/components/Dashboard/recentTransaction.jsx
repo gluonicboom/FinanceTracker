@@ -1,5 +1,6 @@
 import React from "react";
 import { useTransactions } from "../../context/TransactionContext";
+import { formatCurrency } from "../../utils/currency";
 
 export default function RecentTransactions() {
   const { transactions } = useTransactions();
@@ -7,6 +8,7 @@ export default function RecentTransactions() {
   const recentTransactions = [...transactions]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
+     const currency = localStorage.getItem("currency") || "INR";
 
   return (
     <div className="bg-gray-800 rounded-xl p-6">
@@ -41,7 +43,7 @@ export default function RecentTransactions() {
                       : "text-red-400"
                   }`}
                 >
-                  {t.type === "income" ? "+" : "-"}₹{t.amount}
+                  {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount, currency)};
                 </td>
               </tr>
             ))}

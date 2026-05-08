@@ -5,6 +5,7 @@ import { useTransactions } from "../../context/TransactionContext";
 export default function AddTransactions() {
   // 1️⃣ get function from context
   const { addTransaction } = useTransactions();
+  
 
   // 2️⃣ local state for inputs
   const [income, setIncome] = useState("");

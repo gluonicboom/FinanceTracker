@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useTransactions } from "../../context/TransactionContext";
 import Sidebar from "./sidebar";
 import RecentTransactions from "./recentTransaction";
+import { formatCurrency } from "../../utils/currency";
 
 const user = {
   name: "Tom Cook",
@@ -53,6 +54,7 @@ export default function Dashboard() {
     .reduce((sum, t) => sum + t.amount, 0);
 
   const balance = totalIncome - totalExpense;
+  const currency = localStorage.getItem("currency") || "INR";
 
   return (
     <>
@@ -69,21 +71,21 @@ export default function Dashboard() {
             <div className="bg-gray-800 p-6 rounded-xl">
               <h2 className="text-gray-400">Total Income</h2>
               <p className="text-2xl font-bold text-green-400">
-                ₹{totalIncome}
+                {formatCurrency(totalIncome, currency)}
               </p>
             </div>
 
             <div className="bg-gray-800 p-6 rounded-xl">
               <h2 className="text-gray-400">Total Expense</h2>
               <p className="text-2xl font-bold text-red-400">
-                ₹{totalExpense}
+                {formatCurrency(totalExpense, currency)}
               </p>
             </div>
 
             <div className="bg-gray-800 p-6 rounded-xl">
               <h2 className="text-gray-400">Balance</h2>
               <p className="text-2xl font-bold text-indigo-400">
-                ₹{balance}
+                {formatCurrency(balance, currency)}
               </p>
             </div>
           </div>

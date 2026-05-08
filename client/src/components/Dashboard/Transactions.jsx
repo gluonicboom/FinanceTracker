@@ -1,9 +1,11 @@
 import { useTransactions } from "../../context/TransactionContext";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../../utils/currency";
 
 export default function Transactions() {
   const { transactions } = useTransactions();
   const navigate = useNavigate();
+  const currency = localStorage.getItem("currency") || "INR";
 
   //   EMPTY STATE
   if (transactions.length === 0) {
@@ -72,7 +74,7 @@ export default function Transactions() {
                       : "text-red-400"
                   }`}
                 >
-                  {t.type === "income" ? "+" : "-"}₹{t.amount}
+                  {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount, currency)};
                 </td>
               </tr>
             ))}

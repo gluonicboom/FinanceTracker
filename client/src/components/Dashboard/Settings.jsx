@@ -1,14 +1,20 @@
 import { useState } from "react";
 
 export default function Settings(){
-    const[currency, setCurrency] = useState("INR");
+    const[currency, setCurrency] = useState(
+      localStorage.getItem("currency") ||
+      "INR");
 
+    const handleCurrencyChange = (value) => {
+      setCurrency(value);
+      localStorage.setItem("currency", value);
+    };
 
     function handleReset(){
         localStorage.clear();
         window.location.reload();
 
-    }
+    };
 return(
     <div className="p-6 bg-blue-950 min-h-screen text-white flex justify-center">
         
@@ -18,7 +24,7 @@ return(
           <label className="block mb-2 font-bold">Currency</label>
           <select
             value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
+            onChange={(e) => handleCurrencyChange(e.target.value)}
             className="w-full p-2 rounded bg-blue-800"
           >
             <option value="INR">₹ INR</option>

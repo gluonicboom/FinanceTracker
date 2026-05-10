@@ -6,10 +6,54 @@ export const conversionRates = {
 export const currencySymbols = {
   INR: "₹",
   USD: "$",
-};
+}; 
 
 export const formatCurrency = (amount, currency = "INR") => {
   const convertedAmount = amount * conversionRates[currency];
 
   return `${currencySymbols[currency]}${convertedAmount.toFixed(2)}`;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

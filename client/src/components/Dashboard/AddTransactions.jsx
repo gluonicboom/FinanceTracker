@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTransactions } from "../../context/TransactionContext";
+
 
 export default function AddTransactions() {
-  // 1️⃣ get function from context
-  const { addTransaction } = useTransactions();
-  
-
   // 2️⃣ local state for inputs
   const [income, setIncome] = useState("");
   const [expense, setExpense] = useState("");
@@ -16,23 +12,58 @@ export default function AddTransactions() {
   const navigate = useNavigate();
 
   // 3️⃣ handling submit in react way
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    if (income) {
-      addTransaction("income", income,
-        description,
-         category);
-    }
+    // validation first 
+    
+    if (income && expense) {
+    alert("Enter either Income or Expense.");
+    return;
+  }
 
-    if (expense) {
-      addTransaction("expense", expense,
+  if (!income && !expense) {
+    alert("Please enter an amount.");
+    return;
+  }
+    
+//convert to one amount
+const amount = income
+?Number(income)
+:-Number(expense);
+try{
+  const res = await fetch("http://localhost:5000/api/transactions",
+
+    {
+      method: "POST",
+      headers:{
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify({
+        user_id:1, // temporary, will replace with JWT
+        amount,
         description,
-        category
-      );
+        category,
+      }),
     }
+  );
+
+  const data = await res.json();
+
+  if(!res.ok){
+    alert(data.msg || "Failed to add transactions");
+    return;
+  }
+
+  console.log("Transactions Added", data);
 
     navigate("/Dashboard");
+}
+catch (err){
+  console.error(err);
+  alert("Server Error");
+}
+ 
   }
 
   return (

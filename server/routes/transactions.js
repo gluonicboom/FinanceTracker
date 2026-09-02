@@ -9,16 +9,16 @@ router.post("/", async (req, res) => {
 
   try {
 
-    const { user_id, amount, description, category } = req.body;
+    const { user_id, amount,type, description, category } = req.body;
 
     const newTransaction = await pool.query(
       `
       INSERT INTO transactions
-      (user_id, amount, description, category)
-      VALUES ($1, $2, $3, $4)
+      (user_id, amount,type, description, category)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *
       `,
-      [user_id, amount, description, category]
+      [user_id, amount,type, description, category]
     );
 
     res.json(newTransaction.rows[0]);

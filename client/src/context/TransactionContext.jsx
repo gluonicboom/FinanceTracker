@@ -2,27 +2,69 @@ import { createContext, useContext, useState } from "react";
 
 const TransactionContext = createContext();
 
-export function TransactionProvider({ children }) {
+export function TransactionProvider({ children }) { 
   const [transactions, setTransactions] = useState([]);
-  
 
-  function addTransaction(type, amount, description, category, date) {
-    setTransactions(prev => [
-      ...prev,
+
+  // Fetch all transactions from PostgreSQL
+  async function fetchTransactions(){
+    try{
+      const res = await fetch("http://localhost:5000/api/transactions");
+      if(!res.ok){
+        throw new Error("Failed to fetch transactions");
+      }
+      const data = await res.json();
+      console.log("Transactions from database:", data);
+      setTransactions(data);
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+
+ async function addTransaction(type, amount, description, category, date) {
+
+  try{
+    const res = await fetch("http://localhost:5000/api/transactions" , 
+
       {
-        id: Date.now(), 
-        type: type ,
-        amount: Number(amount),
-        description,
-        category,
-        date: date || new Date().toISOString(),
-      },
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: 1,
+          amount: Number(amount),
+          type,
+          description,
+          category,
+
+        }),
+      }
+    );
+
+    if(!res.ok){
+      throw new Error("Failed to add transaction");
+    }
+      const newTransaction = await res.json();
+      console.log("Transaction Saved:", newTransaction);
+
+ setTransactions(prev => [ 
+      ...prev,
+      newTransaction,
 
     ]);
+
+  }
+
+  catch(err){
+console.log(err);
+  }
+   
   }
 
   return (
-    <TransactionContext.Provider value={{ transactions, addTransaction }}>
+    <TransactionContext.Provider value={{ transactions, addTransaction, fetchTransactions, }}>
       {children}
     </TransactionContext.Provider>      
   );

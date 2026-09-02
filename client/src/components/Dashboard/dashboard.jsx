@@ -14,6 +14,7 @@ import { useTransactions } from "../../context/TransactionContext";
 import Sidebar from "./sidebar";
 import RecentTransactions from "./recentTransaction";
 import { formatCurrency } from "../../utils/currency";
+import {useEffect} from "react";
 
 const user = {
   name: "Tom Cook",
@@ -42,19 +43,23 @@ function classNames(...classes) {
 
 export default function Dashboard() {
   // ✅ read-only access to global state
-  const { transactions } = useTransactions();
+  const { transactions, fetchTransactions } = useTransactions();
 
   // ✅ derive values (NOT stored in state)
   const totalIncome = transactions
     .filter((t) => t.type === "income")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + Number(t.amount || 0), 0);
 
   const totalExpense = transactions
     .filter((t) => t.type === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum, t) => sum + Number(t.amount ||0 ), 0);
 
   const balance = totalIncome - totalExpense;
   const currency = localStorage.getItem("currency") || "INR";
+
+  useEffect(()=> {
+    fetchTransactions();
+  }, []);
 
   return (
     <>

@@ -4,7 +4,7 @@ import Landing from "./components/Landing";
 import ReadMore from "./components/ReadMore";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/dashboard";
 import AddTransactions from "./components/Dashboard/AddTransactions";
 import Transactions from "./components/Dashboard/Transactions";
 import Reports from "./components/Dashboard/reports";

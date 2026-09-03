@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
 const TransactionContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function TransactionProvider({ children }) { 
   const [transactions, setTransactions] = useState([]);
@@ -9,7 +10,7 @@ export function TransactionProvider({ children }) {
   // Fetch all transactions from PostgreSQL
   async function fetchTransactions(){
     try{
-      const res = await fetch("http://localhost:5000/api/transactions");
+      const res = await fetch(`${API_URL}/api/transactions`);
       if(!res.ok){
         throw new Error("Failed to fetch transactions");
       }
@@ -25,7 +26,7 @@ export function TransactionProvider({ children }) {
  async function addTransaction(type, amount, description, category, date) {
 
   try{
-    const res = await fetch("http://localhost:5000/api/transactions" , 
+    const res = await fetch(`${API_URL}/api/transactions` , 
 
       {
         method: "POST",

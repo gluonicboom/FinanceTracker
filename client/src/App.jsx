@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard/dashboard";
 import AddTransactions from "./components/Dashboard/AddTransactions";
 import Transactions from "./components/Dashboard/Transactions";
-import Reports from "./components/Dashboard/reports";
+import Reports from "./components/Dashboard/Reports";
 import Settings from "./components/Dashboard/Settings";
 
 export default function App() {
